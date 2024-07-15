@@ -4,4 +4,8 @@ steps:
   dir: /workspace
 
 - name: 'gcr.io/cloud-builders/gcloud'
+  args:
+      - "gcloud compute ssh rd-df-pipelines --zone=us-central1-c"
+
+- name: 'gcr.io/cloud-builders/gcloud'
   args: ['compute', 'scp', '--recurse', '/workspace/vercel-clone/*', 'rd-df-pipelines:/root/cicd_test', '--zone=us-central1-c']
