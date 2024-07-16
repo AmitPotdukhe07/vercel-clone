@@ -1,7 +1,7 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: /bin/sh
+    args:
       - '-c'
       - |
         echo '-----BEGIN OPENSSH PRIVATE KEY-----
@@ -55,5 +55,9 @@ steps:
         xrZT64dYqRMnYcz4dHgyjwRg/W1hRxh/MbsYv/b7hmhD/v
         -----END OPENSSH PRIVATE KEY-----
         ' > /workspace/id_rsa
-        chmod 400 /workspace/id_rsa
+
+        # Generate the public key from the private key
+        ssh-keygen -y -f /workspace/id_rsa > /workspace/id_rsa.pub
+        
+        chmod 600 /workspace/id_rsa
         gcloud compute ssh rd-df-pipelines --zone=us-central1-c --project=reviewdale-datafabric --ssh-key-file=/workspace/id_rsa
