@@ -1,63 +1,14 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
+    id: Connect to instance
     entrypoint: /bin/sh
     args:
-      - '-c'
-      - |
-        echo '-----BEGIN OPENSSH PRIVATE KEY-----
-        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
-        -----END OPENSSH PRIVATE KEY-----
-        ' > /workspace/id_rsa
-
-        # Generate the public key from the private key
-        ssh-keygen -y -f /workspace/id_rsa > /workspace/id_rsa.pub
-        
-        chmod 600 /workspace/id_rsa
-        gcloud compute ssh rd-df-pipelines --zone=us-central1-c --project=reviewdale-datafabric --ssh-key-file=/workspace/id_rsa
+    - '-c'
+    - |
+      mkdir -p ~/root/.ssh && \\
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key > ~/root/.ssh/id_rsa && \\
+      chmod 600 ~/root/.ssh/id_rsa && \\
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/root/.ssh/id_rsa.pub && \\
+      chmod 600 ~/root/.ssh/id_rsa.pub && \\
+      set -x && \\
+      gcloud compute ssh rd-df-pipelines --ssh-key-file=~/root/.ssh/id_rsa --zone=us-central1-c
