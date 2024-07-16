@@ -1,15 +1,21 @@
 steps:
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone', 'https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git']
-  dir: /workspace
-
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
       - '-c'
       - |
-        echo $SSH_KEY > /root/.ssh/id_rsa
+        # Retrieve the SSH key from Secret Manager
+        gcloud secrets versions access latest --secret=my-ssh-key > /root/.ssh/id_rsa
         chmod 600 /root/.ssh/id_rsa
+
+        # Add SSH key to the SSH agent
+        eval "$(ssh-agent -s)"
+        ssh-add /root/.ssh/id_rsa
+
+        # Disable strict host key checking to avoid host key verification errors
+        echo -e "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+
+        # SSH into the VM instance
         gcloud compute ssh rd-df-pipelines --zone=us-central1-c --project=reviewdale-datafabric --ssh-key-file=/root/.ssh/id_rsa
 
 - name: 'gcr.io/cloud-builders/gcloud'
