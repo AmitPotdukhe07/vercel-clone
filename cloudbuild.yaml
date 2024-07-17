@@ -5,12 +5,13 @@ steps:
     args:
     - '-c'
     - |
-      mkdir -p ~/root/.ssh
-      gcloud secrets versions access latest --secret=cloud-build-ssh-key > ~/root/.ssh/id_rsa
-      chmod 600 ~/root/.ssh/id_rsa
-      gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/root/.ssh/id_rsa.pub
-      chmod 600 ~/root/.ssh/id_rsa.pub
-      cat ~/root/.ssh/id_rsa
-      cat ~/root/.ssh/id_rsa.pub
+      mkdir -p /builder/home/.ssh
+      touch /builder/home/.ssh/google_compute_known_hosts
+      chmod 700 /builder/home/.ssh
+      chmod 600 /builder/home/.ssh/google_compute_known_hosts
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key > /builder/home/.ssh/id_rsa
+      chmod 600 /builder/home/.ssh/id_rsa
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > /builder/home/.ssh/id_rsa.pub
+      chmod 600 /builder/home/.ssh/id_rsa.pub
       set -x
-      gcloud compute ssh rd-df-pipelines --ssh-key-file=~/root/.ssh/id_rsa --zone=us-central1-c
+      gcloud compute ssh rd-df-pipelines --ssh-key-file=/builder/home/.ssh/id_rsa --zone=us-central1-c --strict-host-key-checking=no
