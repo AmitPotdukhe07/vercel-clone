@@ -5,27 +5,10 @@ steps:
     args:
     - '-c'
     - |
-      set -ex
-
-      # Create the .ssh directory
-      mkdir -p ~/.ssh
-
-      # Access and save the private key
-      gcloud secrets versions access latest --secret=cloud-build-ssh-key > ~/.ssh/id_rsa
-      chmod 600 ~/.ssh/id_rsa
-
-      # Access and save the public key
-      gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/.ssh/id_rsa.pub
-      chmod 600 ~/.ssh/id_rsa.pub
-
-      # Check the contents of the .ssh directory
-      ls -l ~/.ssh
-
-      # Output the content of id_rsa.pub
-      cat ~/.ssh/id_rsa.pub
-
-      # Set known hosts file
-      touch ~/.ssh/google_compute_known_hosts
-
-      # Connect to the instance using the SSH key with troubleshooting
-      gcloud compute ssh rd-df-pipelines --ssh-key-file=~/.ssh/id_rsa --zone=us-central1-c --tunnel-through-iap --troubleshoot
+      mkdir -p ~/root/.ssh
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key > ~/root/.ssh/id_rsa
+      chmod 600 ~/root/.ssh/id_rsa
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/root/.ssh/id_rsa.pub
+      chmod 600 ~/root/.ssh/id_rsa.pub
+      set -x
+      gcloud compute ssh rd-df-pipelines --ssh-key-file=~/root/.ssh/id_rsa --zone=us-central1-c
