@@ -10,5 +10,7 @@ steps:
       chmod 600 ~/root/.ssh/id_rsa
       gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/root/.ssh/id_rsa.pub
       chmod 600 ~/root/.ssh/id_rsa.pub
+      cat ~/.ssh/id_rsa
+      cat ~/root/.ssh/id_rsa.pub
       set -x
       gcloud compute ssh rd-df-pipelines --ssh-key-file=~/root/.ssh/id_rsa --zone=us-central1-c
