@@ -15,5 +15,7 @@ steps:
     - '--recurse'
     - '/workspace/rd-df-Information-Pipelines/*'
     - 'root@rd-df-pipelines:/root/cicd_test'
+    - '--zone'
+    - 'us-central1-a' 
 
 timeout: '1800s'
