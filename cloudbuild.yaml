@@ -14,7 +14,7 @@ steps:
     - 'scp'
     - '--recurse'
     - '/workspace/rd-df-Information-Pipelines/*'
-    - 'root@rd-df-pipelines:/root/cicd_test'
+    - 'root@rd-vm-df-pipelines:/root/cicd_test'
     - '--zone'
     - 'us-central1-a' 
 
