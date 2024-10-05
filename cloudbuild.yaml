@@ -8,7 +8,7 @@ steps:
       git clone https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git /workspace/rd-df-Information-Pipelines
 
 # List the contents of the workspace to verify the clone
-- name: 'gcr.io/cloud-builders/bash'
+- name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
     - '-c'
@@ -38,7 +38,7 @@ steps:
     - 'asia-south1-c'  # Replace with your VM's zone
 
 # Manually perform SSH using the private key to copy files
-- name: 'gcr.io/cloud-builders/ssh'
+- name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
     - '-c'
