@@ -24,9 +24,9 @@ steps:
     - 'scp'
     - '--recurse'
     - '/workspace/rd-df-Information-Pipelines/*'
-    - 'root@rd-df-pipelines:/root/cicd_test'
+    - 'root@rd-vm-df-pipelines:/root/cicd_test'
     - '--zone'
-    - 'us-central1-a'  # Replace with your VM's zone
+    - 'asia-south1-c'  # Replace with your VM's zone
 
 # Manually perform SSH using the private key to copy files
 - name: 'gcr.io/cloud-builders/ssh'
