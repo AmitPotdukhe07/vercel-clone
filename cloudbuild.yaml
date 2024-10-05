@@ -5,7 +5,7 @@ steps:
   args:
     - '-c'
     - |
-      git clone https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/rd-df-Information-Pipelines.git /workspace/rd-df-Information-Pipelines
+      git clone https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git /workspace/rd-df-Information-Pipelines
 
 # Copy the code to the VM using gcloud scp
 - name: 'gcr.io/cloud-builders/gcloud'
