@@ -1,14 +1,13 @@
 steps:
 # Clone the GitHub repository with hardcoded token
 - name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
   args:
-    - '-c'
-    - |
-      git clone https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git /workspace/rd-df-Information-Pipelines
+    - 'clone'
+    - 'https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git'
+    - '/workspace/rd-df-Information-Pipelines'
 
 # List the contents of the workspace to verify the clone
-- name: 'gcr.io/cloud-builders/bash'
+- name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
     - '-c'
@@ -17,7 +16,7 @@ steps:
       ls -la /workspace
 
 # List the contents of the cloned repository
-- name: 'gcr.io/cloud-builders/bash'
+- name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
     - '-c'
