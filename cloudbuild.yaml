@@ -7,6 +7,15 @@ steps:
     - |
       git clone https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git /workspace/rd-df-Information-Pipelines
 
+# List the contents of the workspace to verify the clone
+- name: 'gcr.io/cloud-builders/bash'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      echo "Listing contents of /workspace:"
+      ls -la /workspace
+
 # Retrieve the private key from Secret Manager
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'bash'
@@ -17,14 +26,14 @@ steps:
       gcloud secrets versions access latest --secret=rd-df-vm-private-key > /workspace/vm-key.pem
       chmod 600 /workspace/vm-key.pem
 
-# Copy the code to the VM using gcloud scp with private key
+# Copy the code to the VM using gcloud scp with private key and amitpotdukhe as the username
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
     - 'compute'
     - 'scp'
     - '--recurse'
     - '/workspace/rd-df-Information-Pipelines/*'
-    - 'amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test'
+    - 'amitpotdukhe@rd-df-pipelines:/root/cicd_test'
     - '--zone'
     - 'asia-south1-c'  # Replace with your VM's zone
 
