@@ -8,13 +8,22 @@ steps:
       git clone https://AmitPotdukhe07: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@github.com/AmitPotdukhe07/vercel-clone.git /workspace/rd-df-Information-Pipelines
 
 # List the contents of the workspace to verify the clone
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/cloud-builders/bash'
   entrypoint: 'bash'
   args:
     - '-c'
     - |
       echo "Listing contents of /workspace:"
       ls -la /workspace
+
+# List the contents of the cloned repository
+- name: 'gcr.io/cloud-builders/bash'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      echo "Listing contents of /workspace/rd-df-Information-Pipelines:"
+      ls -la /workspace/rd-df-Information-Pipelines
 
 # Retrieve the private key from Secret Manager
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
