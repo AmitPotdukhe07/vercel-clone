@@ -16,6 +16,6 @@ steps:
     - '/workspace/rd-df-Information-Pipelines/*'
     - 'root@rd-vm-df-pipelines:/root/cicd_test'
     - '--zone'
-    - 'us-central1-a' 
+    - 'asia-south1-c' 
 
 timeout: '1800s'
