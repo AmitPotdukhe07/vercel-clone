@@ -35,6 +35,6 @@ steps:
     - '-c'
     - |
       echo "Copying files via SSH..."
-      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace/rd-df-Information-Pipelines/* root@rd-df-pipelines:/root/cicd_test
+      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace/rd-df-Information-Pipelines/* amitpotdukhe@rd-df-pipelines:/root/cicd_test
 
 timeout: '1800s'
