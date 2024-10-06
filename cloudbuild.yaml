@@ -40,7 +40,7 @@ steps:
     - 'compute'
     - 'scp'
     - '--recurse'
-    - '/workspace/rd-df-Information-Pipelines/*'
+    - '/workspace/rd-df-Information-Pipelines'
     - 'amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test'
     - '--zone'
     - 'asia-south1-c'  # Replace with your VM's zone
@@ -52,6 +52,6 @@ steps:
     - '-c'
     - |
       echo "Copying files via SSH..."
-      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace/rd-df-Information-Pipelines/* amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test
+      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace/rd-df-Information-Pipelines amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test
 
 timeout: '1800s'
