@@ -40,10 +40,11 @@ steps:
     - 'compute'
     - 'scp'
     - '--recurse'
-    - '/workspace/rd-df-Information-Pipelines'
+    - '/workspace/rd-df-Information-Pipelines/*'
     - 'amitpotdukhe@rd-vm-df-pipelines:/home/amitpotdukhe/cicd_test'
     - '--zone'
     - 'asia-south1-c'
+
 
 # Manually perform SSH using the private key to copy files
 - name: 'gcr.io/cloud-builders/gcloud'
