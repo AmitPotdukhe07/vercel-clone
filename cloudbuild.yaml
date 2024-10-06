@@ -35,15 +35,18 @@ steps:
       chmod 600 /workspace/vm-key.pem
 
 # Copy the code to the VM using gcloud scp with private key and amitpotdukhe as the username
+# Copy only the files inside the directory to the VM
 - name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
   args:
-    - 'compute'
-    - 'scp'
-    - '--recurse'
-    - '/workspace/rd-df-Information-Pipelines/*'
-    - 'amitpotdukhe@rd-vm-df-pipelines:/home/amitpotdukhe/cicd_test'
-    - '--zone'
-    - 'asia-south1-c'
+    - '-c'
+    - |
+      for file in /workspace/rd-df-Information-Pipelines/*; do
+        if [ -f "$file" ] || [ -d "$file" ]; then
+          gcloud compute scp --recurse "$file" amitpotdukhe@rd-vm-df-pipelines:/home/amitpotdukhe/cicd_test --zone asia-south1-c
+        fi
+      done
+
 
 
 # Manually perform SSH using the private key to copy files
