@@ -1,5 +1,4 @@
-steps:
-# List the contents of the workspace to verify the repository was cloned automatically by the trigger
+# List the contents of the workspace to verify the source has been provided by the trigger
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
   args:
@@ -7,15 +6,6 @@ steps:
     - |
       echo "Listing contents of /workspace:"
       ls -la /workspace
-
-# List the contents of the repository (already cloned automatically into /workspace)
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      echo "Listing contents of the repository in /workspace:"
-      ls -la /workspace/vercel-clone
 
 # Retrieve the private key from Secret Manager
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -34,7 +24,7 @@ steps:
   args:
     - '-c'
     - |
-      for file in /workspace/[YOUR-REPO-NAME]/*; do
+      for file in /workspace/*; do
         if [ -f "$file" ] || [ -d "$file" ]; then
           gcloud compute scp --recurse "$file" amitpotdukhe@rd-vm-df-pipelines:/home/amitpotdukhe/cicd_test --zone asia-south1-c
         fi
@@ -47,6 +37,6 @@ steps:
     - '-c'
     - |
       echo "Copying files via SSH..."
-      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace/[YOUR-REPO-NAME] amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test
+      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test
 
 timeout: '1800s'
