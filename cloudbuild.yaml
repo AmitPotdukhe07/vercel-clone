@@ -1,3 +1,5 @@
+steps:
+# Clone the GitHub repository with hardcoded token
 # List the contents of the workspace to verify the source has been provided by the trigger
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
@@ -38,4 +40,6 @@
     - |
       echo "Copying files via SSH..."
       scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test
+
+# Timeout for the entire build
 timeout: '1800s'
