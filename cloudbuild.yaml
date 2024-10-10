@@ -1,5 +1,13 @@
 steps:
 # Clone the GitHub repository with hardcoded token
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      echo "Downloading files from GCS bucket..."
+      gsutil cp -r gs://rd-df-bckt-pipelines/dags/* /workspace/
+
 # List the contents of the workspace to verify the source has been provided by the trigger
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
@@ -32,14 +40,3 @@ steps:
         fi
       done
 
-# Manually perform SSH using the private key to copy files
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      echo "Copying files via SSH..."
-      scp -i /workspace/vm-key.pem -o StrictHostKeyChecking=no -r /workspace amitpotdukhe@rd-vm-df-pipelines:/root/cicd_test
-
-# Timeout for the entire build
-timeout: '1800s'
